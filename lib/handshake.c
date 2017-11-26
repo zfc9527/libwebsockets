@@ -291,6 +291,7 @@ postbody_completion:
 			break;
 		}
 		break;
+
 	default:
 		lwsl_err("%s: Unhandled state %d\n", __func__, wsi->state);
 		goto bail;
