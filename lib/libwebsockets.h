@@ -123,7 +123,7 @@ typedef unsigned long long lws_intptr_t;
 #define LWS_O_CREAT O_CREAT
 #define LWS_O_TRUNC O_TRUNC
 
-#if !defined(OPTEE_TA) && !defined(LWS_WITH_ESP32)
+#if !defined(LWS_PLAT_OPTEE) && !defined(OPTEE_TA) && !defined(LWS_WITH_ESP32)
 #include <poll.h>
 #include <netdb.h>
 #define LWS_INVALID_FILE -1
@@ -4305,7 +4305,7 @@ LWS_VISIBLE LWS_EXTERN int
 lws_plat_read_file(const char *filename, void *buf, int len);
 
 LWS_VISIBLE LWS_EXTERN int
-lws_plat_recommended_rsa_bits();
+lws_plat_recommended_rsa_bits(void);
 ///@}
 
 /*! \defgroup ev libev helpers
@@ -6756,9 +6756,9 @@ LWS_VISIBLE LWS_EXTERN void
 lws_stats_log_dump(struct lws_context *context);
 #else
 static LWS_INLINE uint64_t
-lws_stats_get(struct lws_context *context, int index) { return 0; }
+lws_stats_get(struct lws_context *context, int index) { (void)context; (void)index;  return 0; }
 static LWS_INLINE void
-lws_stats_log_dump(struct lws_context *context) { }
+lws_stats_log_dump(struct lws_context *context) { (void)context; }
 #endif
 
 #ifdef __cplusplus
